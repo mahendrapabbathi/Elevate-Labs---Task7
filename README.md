@@ -52,5 +52,4 @@ Build a simple web application that fetches and displays user data from a public
       "zipcode": "92998-3874"
     }
   },
-  ...
 ]
