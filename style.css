@@ -13,6 +13,12 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.user-card {
+  background-color: #e0f7fa;
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 5px;
+}
 
 button {
   margin-bottom: 20px;
@@ -26,11 +32,6 @@ button {
 
 button:hover {
   background-color: #004d40;
-}
-
-img{
-    width:350px;
-    height:350px;
 }
 
 .error {

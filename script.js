@@ -1,30 +1,33 @@
-const API = 'https://dog.ceo/api/breeds/image/random';
-let images = document.querySelector('#image')
-let imageButton = document.querySelector('#newImage')
-let error = document.querySelector('#error')
+const API_URL = "https://jsonplaceholder.typicode.com/users";
+const userList = document.getElementById("user-list");
+const errorDiv = document.getElementById("error");
+const reloadBtn = document.getElementById("reload");
 
-async function generateImage(){
-    images.textContent = "";
-    error.textContent = "";
+async function fetchUsers() {
+  userList.innerHTML = "";
+  errorDiv.textContent = "";
 
-    try {
-        const response = await fetch(API);
-        if(!response.ok){
-            throw new Error("Fetching failed")
-        }
+  try {
+    const response = await fetch(API_URL);
+    if (!response.ok) throw new Error("Network response was not ok");
 
-        let imageGenerate = await response.json();
+    const users = await response.json();
 
-    //    console.log(imageGenerate)
-
-       images.innerHTML = `<img src='${imageGenerate.message}' alt='Dog'>`;
-    } 
-    
-    catch (err) {
-        error.textContent = `${err.message}`
-    }
+    users.map(user => {
+      const div = document.createElement("div");
+      div.className = "user-card";
+      div.innerHTML = `
+        <strong>Name:</strong> ${user.name}<br/>
+        <strong>Email:</strong> ${user.email}<br/>
+        <strong>Address:</strong> ${user.address.street}, ${user.address.city}
+      `;
+      userList.appendChild(div);
+    });
+  } catch (err) {
+    errorDiv.textContent = "Failed to fetch data. " + err.message;
+  }
 }
 
-imageButton.addEventListener('click',function(){
-    generateImage();
-})
+reloadBtn.addEventListener("click", fetchUsers);
+
+fetchUsers();
